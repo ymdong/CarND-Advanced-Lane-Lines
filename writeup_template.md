@@ -17,16 +17,15 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./camera_cal/calibration1.jpg "Orginal Chessborad"
-[image2]: ./output_images_use/calibrated_chess.pdf "Calibrated Chessboard"
-[image3]: ./test_images/test4.jpg "Test Road Image"
-[image4]: ./output_images_use/undist.pdf "Undistorted"
-[image5]: ./output_images_use/combined_binary.pdf "Binary Example"
-[image6]: ./output_images_use/warped.pdf "Warp Example"
-[image7]: ./output_images_use/fit.pdf "Fit Visual"
-[image8]: ./output_images_use/final_result.pdf "Output"
-[image9]: ./output_images_use/undist_example.png
-[image10]: ./output_images_use/dist_example.png
+[image1]: ./output_images/chess_board.png "Chessboard"
+[image2]: ./test_images/test4.jpg "Test Road Image"
+[image3]: ./output_images/undist.png "Undistorted"
+[image4]: ./output_images/combined_binary.png "Binary Example"
+[image6]: ./output_images/warped.png "Warp Example"
+[image7]: ./output_images/fit.png "Fit Visual"
+[image8]: ./output_images/final_result.png "Output"
+[image9]: ./output_images/undist_example.png
+[image10]: ./output_images/dist_example.png
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
