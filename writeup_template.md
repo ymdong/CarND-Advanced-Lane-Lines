@@ -1,7 +1,3 @@
-## Writeup Template
-
----
-
 **Advanced Lane Finding Project**
 
 The goals / steps of this project are the following:
@@ -21,12 +17,12 @@ The goals / steps of this project are the following:
 [image2]: ./test_images/test4.jpg "Test Road Image"
 [image3]: ./output_images/undist.png "Undistorted"
 [image4]: ./output_images/combined_binary.png "Binary Example"
-[image6]: ./output_images/warped.png "Warp Example"
-[image7]: ./output_images/fit.png "Fit Visual"
-[image8]: ./output_images/final_result.png "Output"
-[image9]: ./output_images/undist_example.png
-[image10]: ./output_images/dist_example.png
-[video1]: ./project_video.mp4 "Video"
+[image5]: ./output_images/warped.png "Warp Example"
+[image6]: ./output_images/fit.png "Fit Visual"
+[image7]: ./output_images/final_result.png "Output"
+[image8]: ./output_images/undist_example.png
+[image9]: ./output_images/dist_example.png
+[video1]: ./project_video_output.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
@@ -52,66 +48,62 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ![alt text][image1]
 
-![alt text][image2]
-
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
 ![alt text][image2]
+The distortion-corrected version of above image is shown below:
+![alt text][image3]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+I used a combination of HLS color scheme and x-gradient thresholds to generate a binary image (see the function `threshold()` defined in the third cell of Advanced_Finding_Lanes.ipynb). Here's an example of my output for this step.
 
-![alt text][image3]
+![alt text][image4]
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform is a function called `perspective_transform()` defined in the third cell of  Advanced_Finding_Lanes.ipynb.  The `perspective_transform()` function takes as inputs an image (`img`).  I chose the hardcode the source and destination points in the following manner:
 
 ```python
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
+src = np.float32([[575,464],[710,464], [1093,714], [218,714]])
+img_size = (img.shape[1], img.shape[0])
+dst = np.float32([[300,0],[950,0], [950,img_size[1]], [300,img_size[1]]])
 ```
 
 This resulted in the following source and destination points:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
+| 575, 464      | 300, 0        | 
+| 710, 464      | 950, 0        |
+| 1093, 714     | 950, 720      |
+| 218, 714      | 950, 720      |
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+![alt text][image8]
+![alt text][image9]
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+The code for identifying lane-line pixels and fit their positions with a 2nd polynomial is a function `fit_binary_warped()` defined in the third cell of Advanced_Finding_Lanes.ipynb. I use the silding window method introduced in the class and I fit my lane lines with a 2nd order polynomial like this:
 
-![alt text][image5]
+![alt text][image6]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+The code for calculating the radius of curvature of lane is a funciton `curvature()` defined in the third cell of Advanced_Finding_Lanes.ipynb. I used the math equaiton for radius of curvature introduced in class and the unit is also transformed in meter.
+
+The code for calculating the position of the vehicle with respect to center is a function `distance_from_center()` defined in the third cell of Advanced_Finding_Lanes.ipynb. The unit is also tranformed into meter. The radius of curvature and position information are displayed in the final video result.
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+I implemented this step in function `drawing()` defined in the third cell of Advanced_Finding_Lanes.ipynb.  Here is an example of my result on a test image:
 
-![alt text][image6]
+![alt text][image7]
 
 ---
 
@@ -119,7 +111,7 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./project_video_output.mp4)
 
 ---
 
@@ -127,4 +119,6 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+One porblem I faced in the implementation is in the stage of fitting the bianry warped picture of lanes. Since I use the sliding window method, I need to properly select the margin parameter of the sliding window. When I first set the margin as 90, for test4.jpg, I didn't identify the correct right lane line, so I increase the margin to 110 to absorb more data and then the results become correct.
+
+Two factors that will affect the robustness and might make pipeline fail are the quality of road binary image and how you fit the lane lines data. In this case, I combine the x-gradient and HSL color to pick up the lane pixels. It works fine for project_video.mp4, but when I test is on challenge_video.mp4, it just fail to test the correct the line. Apprently, there are other lane-line-like noise in challenge_video.mp4 such as the shadow of middle curb and the marks of road repairing. So we might need to choose better thresholding method and tuning its parameter to pick out the real lane line pixels effectively and also tune the fitting algorithm accordingly. 
