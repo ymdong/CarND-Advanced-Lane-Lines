@@ -89,7 +89,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-The code for identifying lane-line pixels and fit their positions with a 2nd polynomial is a function `fit_binary_warped()` defined in the third cell of Advanced_Finding_Lanes.ipynb. I use the silding window method introduced in the class and I fit my lane lines with a 2nd order polynomial like this:
+The code for identifying lane-line pixels and fit their positions with a 2nd polynomial is a function `fit_binary_warped()` defined in the third cell of Advanced_Finding_Lanes.ipynb. I used the silding window method introduced in the class and I fitted my lane lines with a 2nd order polynomial like this:
 
 ![alt text][image6]
 
@@ -121,4 +121,4 @@ Here's a [link to my video result](./project_video_output.mp4)
 
 One porblem I faced in the implementation is in the stage of fitting the bianry warped picture of lanes. Since I use the sliding window method, I need to properly select the margin parameter of the sliding window. When I first set the margin as 90, for test4.jpg, I didn't identify the correct right lane line, so I increase the margin to 110 to absorb more data and then the results become correct.
 
-Two factors that will affect the robustness and might make pipeline fail are the quality of road binary image and how you fit the lane lines data. In this case, I combine the x-gradient and HSL color to pick up the lane pixels. It works fine for project_video.mp4, but when I test is on challenge_video.mp4, it just fail to test the correct the line. Apprently, there are other lane-line-like noise in challenge_video.mp4 such as the shadow of middle curb and the marks of road repairing. So we might need to choose better thresholding method and tuning its parameter to pick out the real lane line pixels effectively and also tune the fitting algorithm accordingly. 
+Two factors that will affect the robustness and might make pipeline fail are the quality of road binary image and how you fit the lane lines data. In this case, I combine the x-gradient and HSL color to pick up the lane pixels. It works fine for project_video.mp4, but when I test is on challenge_video.mp4, it just fails to test the correct the line. Apprently, there are other lane-line-like noises in challenge_video.mp4 such as the shadow of middle curb and the marks of road repairing. So we might need to choose better thresholding method and tuning its parameter to pick out the real lane line pixels effectively and also tune the fitting algorithm accordingly. 
